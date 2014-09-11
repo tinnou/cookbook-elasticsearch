@@ -66,4 +66,3 @@ if !!node[:elasticsearch][:monitoring]
     end
   end
 end
-end
