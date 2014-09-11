@@ -59,10 +59,10 @@ end
 
 if !!node[:elasticsearch][:monitoring]
   # install monitoring
-  unless Dir.exists? "#{node.elasticsearch[:home_dir]}/plugins/marvel"
-    execute "install-marvel" do
-      command "#{node.elasticsearch[:home_dir]}/bin/plugin -i elasticsearch/marvel/latest"
-      action :run
-    end
+  execute "install-marvel" do
+    command "#{node.elasticsearch[:home_dir]}/bin/plugin -i elasticsearch/marvel/latest"
+    user node[:elasticsearch][:user]
+    action :run
+    not_if "ls #{node[:elasticsearch][:path][:plugins]}/marvel"
   end
 end

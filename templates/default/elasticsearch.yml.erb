@@ -381,5 +381,5 @@ http.basic.password: "<%= node[:elasticsearch][:basic_auth][:password] %>"
 <% end -%>
 <% if !!node[:elasticsearch][:monitoring] -%>
 ################################## Monitoring ################################
-marvel.agent.exporter.es.hosts: ["<%= node[:elasticsearch][:monitoring][:elb] %>"]
+marvel.agent.exporter.es.hosts: ["<%= @marvel_host %>"]
 <% end -%>

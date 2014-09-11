@@ -38,13 +38,24 @@ end
 instances = node[:opsworks][:layers][:elasticsearch][:instances]
 hosts = instances.map{ |name, attrs| attrs['private_ip'] }
 
+marvel_host = ""
+if !!node[:elasticsearch][:monitoring]
+  if !!node[:elasticsearch][:basic_auth]
+    marvel_host = "#{node[:elasticsearch][:basic_auth][:user]}:#{node[:elasticsearch][:basic_auth][:password]}@#{node[:elasticsearch][:monitoring][:elb]}"
+  else 
+    marvel_host = "#{node[:elasticsearch][:monitoring][:elb]}"
+
+
 template "elasticsearch.yml" do
   path   "#{node[:elasticsearch][:path][:conf]}/elasticsearch.yml"
   source "elasticsearch.yml.erb"
   owner node[:elasticsearch][:user]
   group node[:elasticsearch][:user]
   mode 0755
-  variables :hosts => hosts
+  variables ({ 
+    :hosts => hosts
+    :marvel_host => marvel_host
+    })
 end
 
 # Monitoring by Monit
