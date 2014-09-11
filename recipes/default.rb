@@ -53,7 +53,7 @@ template "elasticsearch.yml" do
   group node[:elasticsearch][:user]
   mode 0755
   variables ({ 
-    :hosts => hosts
+    :hosts => hosts,
     :marvel_host => marvel_host
     })
 end
