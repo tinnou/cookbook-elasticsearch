@@ -379,3 +379,7 @@ http.basic.enabled: <%= (!!node[:elasticsearch][:basic_auth]).to_s %>
 http.basic.user: "<%= node[:elasticsearch][:basic_auth][:user] %>"
 http.basic.password: "<%= node[:elasticsearch][:basic_auth][:password] %>"
 <% end -%>
+<% if !!node[:elasticsearch][:monitoring] -%>
+################################## Monitoring ################################
+marvel.agent.exporter.es.hosts: ["<%= node[:elasticsearch][:monitoring][:elb] %>"]
+<% end -%>
