@@ -57,7 +57,7 @@ if !!node[:elasticsearch][:basic_auth]
   end
 end
 
-if !!node[:elasticsearch][:monitoring] do
+if !!node[:elasticsearch][:monitoring]
   # install monitoring
   execute "install-marvel" do
     command "#{node.elasticsearch[:home_dir]}/bin/plugin -i elasticsearch/marvel/latest"
