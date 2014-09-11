@@ -44,7 +44,8 @@ if !!node[:elasticsearch][:monitoring]
     marvel_host = "#{node[:elasticsearch][:basic_auth][:user]}:#{node[:elasticsearch][:basic_auth][:password]}@#{node[:elasticsearch][:monitoring][:elb]}"
   else 
     marvel_host = "#{node[:elasticsearch][:monitoring][:elb]}"
-
+  end
+end
 
 template "elasticsearch.yml" do
   path   "#{node[:elasticsearch][:path][:conf]}/elasticsearch.yml"
@@ -55,7 +56,7 @@ template "elasticsearch.yml" do
   variables ({ 
     :hosts => hosts,
     :marvel_host => marvel_host
-    })
+  })
 end
 
 # Monitoring by Monit
